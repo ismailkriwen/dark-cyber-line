@@ -2,12 +2,22 @@
 
 import { Sidebar } from "@/components/sidebar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Avatar, Button, Input } from "@nextui-org/react";
-import { Menu, Search } from "lucide-react";
-import { useSession } from "next-auth/react";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Input,
+} from "@nextui-org/react";
+import { LogOut, Menu, Search } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
+  const router = useRouter();
   const { data: session } = useSession();
 
   return (
@@ -36,7 +46,31 @@ export const Navbar = () => {
         </div>
         <div>
           {session?.user ? (
-            <Avatar src={session?.user?.image!} />
+            <Dropdown placement="bottom-end" radius="sm">
+              <DropdownTrigger className="cursor-pointer">
+                <Avatar src={session?.user?.image!} />
+              </DropdownTrigger>
+              <DropdownMenu className="text-black">
+                <DropdownItem
+                  onClick={() =>
+                    router.push(
+                      `/profile/${session?.user?.name?.replace(" ", "-")}`
+                    )
+                  }
+                >
+                  {session?.user?.name}
+                </DropdownItem>
+                <DropdownItem showDivider>
+                  Rank: {session?.user?.role}
+                </DropdownItem>
+                <DropdownItem
+                  startContent={<LogOut className="w-4 h-4" />}
+                  onClick={() => signOut({ redirect: false, callbackUrl: "/" })}
+                >
+                  Sign out
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           ) : (
             <Link href="/sign-in">
               <Button radius="sm" variant="ghost" color="primary">

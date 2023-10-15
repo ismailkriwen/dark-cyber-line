@@ -19,6 +19,10 @@ export const FormComponent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "admin@gmail.com",
+      password: "1234",
+    },
   });
 
   const checkErrors = () => {
@@ -34,16 +38,15 @@ export const FormComponent = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const { email, password } = values;
     const response = await checkUser({ email, password });
-    // @ts-ignore
     if (response?.error)
       toast.error(response.error, { position: "bottom-right" });
     else {
-      toast.success("Signed in successfully!", { position: "bottom-right" });
       signIn("credentials", {
         email,
         password,
         redirect: false,
       });
+      toast.success("Signed in successfully!", { position: "bottom-right" });
       router.push("/dashboard");
     }
   };
@@ -77,6 +80,7 @@ export const FormComponent = () => {
                       type="email"
                       variant="underlined"
                       placeholder="Email"
+                      isClearable
                       {...field}
                     />
                   </FormControl>

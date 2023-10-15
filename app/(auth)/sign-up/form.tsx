@@ -34,7 +34,6 @@ export const FormComponent = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const { username, email, password } = values;
     const response = await createUser({ username, email, password });
-    // @ts-ignore
     if (response?.error)
       toast.error(response.error, { position: "bottom-right" });
     else {
@@ -105,7 +104,7 @@ export const FormComponent = () => {
                 <FormItem>
                   <FormControl>
                     <Input
-                      type="password"
+                      type={isVisible ? "text" : "password"}
                       variant="underlined"
                       placeholder="Password"
                       endContent={

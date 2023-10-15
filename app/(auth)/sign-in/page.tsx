@@ -4,7 +4,6 @@ import { FormComponent } from "./form";
 
 const SignInPage = async () => {
   const session = await getAuthSession();
-  console.log(session);
   if (session?.user) redirect("/dashboard");
 
   return (

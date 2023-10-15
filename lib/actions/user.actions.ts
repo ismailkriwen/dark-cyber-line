@@ -26,7 +26,6 @@ export const createUser = async ({
   });
 
   if (!user) return { error: "Something went wrong" };
-  return user;
 };
 
 export const checkUser = async ({
@@ -40,13 +39,21 @@ export const checkUser = async ({
   if (!user) return { error: "User is not found" };
   const validPass = await compare(password, user.password!);
   if (!validPass) return { error: "Password is incorrect" };
-
-  return true;
 };
 
 export const getUser = async (email: string) => {
   const data = await prisma.user.findUnique({
     where: { email },
+    include: { posts: true },
+  });
+
+  return data;
+};
+
+export const getProfile = async (name: string) => {
+  const username = name.replace("-", " ");
+  const data = await prisma.user.findFirst({
+    where: { name: username },
     include: { posts: true },
   });
 
