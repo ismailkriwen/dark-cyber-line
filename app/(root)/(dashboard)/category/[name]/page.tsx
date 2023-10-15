@@ -1,4 +1,4 @@
-import { CategoryPosts } from "@/app/(dashboard)/category/[name]/posts";
+import { CategoryPosts } from "@/app/(root)/(dashboard)/category/[name]/posts";
 import { getAuthSession } from "@/app/api/auth/[...nextauth]/route";
 import { unslug } from "@/lib/utils";
 import { redirect } from "next/navigation";
