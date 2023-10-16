@@ -1,7 +1,6 @@
 "use client";
 
 import { Drama, Home, ShieldPlus } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 const links = [
@@ -23,8 +22,6 @@ const links = [
 ];
 
 export const Sidebar = () => {
-  const { data: session } = useSession();
-
   return (
     <div className="text-xl flex justify-between flex-col h-full py-4">
       <div className="space-y-4">

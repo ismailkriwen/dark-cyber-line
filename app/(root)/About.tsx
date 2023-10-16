@@ -6,7 +6,7 @@ import { AlertCircle } from "lucide-react";
 export const About = () => {
   return (
     <>
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center flex-col gap-2 mt-10 h-full">
+      <div className="h-full w-fit md:fixed md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 flex items-center justify-center flex-col gap-2 mt-10">
         <div className="text-3xl font-bold">About us</div>
         <div className="text-center">
           Hackers are individuals or groups of people who gain unauthorized

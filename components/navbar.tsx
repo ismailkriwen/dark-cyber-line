@@ -9,9 +9,8 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Input,
 } from "@nextui-org/react";
-import { LogOut, Menu, Search } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -21,7 +20,7 @@ export const Navbar = () => {
   const { data: session } = useSession();
 
   return (
-    <div className="shadow-md bg-slate-700/50 text-white">
+    <div className="shadow-md bg-slate-700/50 text-white sticky inset-x-0 top-0">
       <div className="flex container items-center justify-between py-4">
         <Sheet>
           <SheetTrigger>
@@ -31,7 +30,7 @@ export const Navbar = () => {
             <Sidebar />
           </SheetContent>
         </Sheet>
-        <div>
+        {/* <div>
           <Input
             placeholder="Search.."
             variant="underlined"
@@ -43,24 +42,25 @@ export const Navbar = () => {
             radius="sm"
             startContent={<Search className="w-4 h-4" />}
           />
-        </div>
+        </div> */}
         <div>
           {session?.user ? (
             <Dropdown placement="bottom-end" radius="sm">
               <DropdownTrigger className="cursor-pointer">
-                <Avatar src={session?.user?.image!} />
+                <Avatar src={session?.user?.image!} showFallback />
               </DropdownTrigger>
-              <DropdownMenu className="text-black">
+              <DropdownMenu className="text-black" aria-label="user">
                 <DropdownItem
                   onClick={() =>
                     router.push(
                       `/profile/${session?.user?.name?.replace(" ", "-")}`
                     )
                   }
+                  textValue="username"
                 >
                   {session?.user?.name}
                 </DropdownItem>
-                <DropdownItem showDivider>
+                <DropdownItem showDivider textValue="rank">
                   Rank: {session?.user?.role}
                 </DropdownItem>
                 <DropdownItem
