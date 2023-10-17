@@ -44,7 +44,6 @@ export const checkUser = async ({
 export const getUser = async (email: string) => {
   const data = await prisma.user.findUnique({
     where: { email },
-    include: { posts: true },
   });
 
   return data;
@@ -52,10 +51,18 @@ export const getUser = async (email: string) => {
 
 export const getProfile = async (name: string) => {
   const username = name.replace("-", " ");
-  const data = await prisma.user.findFirst({
+  let data = null;
+  const try1 = await prisma.user.findFirst({
     where: { name: username },
-    include: { posts: true },
   });
+
+  if (!try1) {
+    const try2 = await prisma.user.findFirst({
+      where: { name },
+    });
+    data = try2;
+  }
+  if (try1) data = try1;
 
   return data;
 };

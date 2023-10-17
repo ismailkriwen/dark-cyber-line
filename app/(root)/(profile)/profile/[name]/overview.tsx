@@ -1,7 +1,7 @@
 "use client";
 
 import { getProfile } from "@/lib/actions/user.actions";
-import { Button, Spinner, cn, useDisclosure } from "@nextui-org/react";
+import { Button, Spinner, useDisclosure } from "@nextui-org/react";
 import { Session } from "next-auth";
 import { useQuery } from "react-query";
 import { NewMessage } from "./modal/message";

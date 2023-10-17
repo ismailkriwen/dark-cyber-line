@@ -27,7 +27,7 @@ export const Navbar = () => {
             <Menu className="h-8 w-8 cursor-pointer" />
           </SheetTrigger>
           <SheetContent side="left" className="w-72 bg-slate-700/80">
-            <Sidebar />
+            <Sidebar session={session} />
           </SheetContent>
         </Sheet>
         {/* <div>
